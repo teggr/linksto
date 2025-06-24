@@ -1,2 +1,6 @@
 # linksto
-A webapp for sharing links just how I like it
+
+Social bookmarking service.
+
+```bash
+```
