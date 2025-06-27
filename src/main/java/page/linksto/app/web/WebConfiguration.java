@@ -3,6 +3,7 @@ package page.linksto.app.web;
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -25,7 +26,7 @@ public class WebConfiguration {
 
     http.authorizeHttpRequests((authorize) -> {
 
-      authorize.requestMatchers("/", "/error", "/save" ).permitAll();
+      authorize.requestMatchers("/", "/error" ).permitAll();
 
       authorize.requestMatchers("/admin/**", "/h2-console/**").hasAnyRole("ADMIN");
 

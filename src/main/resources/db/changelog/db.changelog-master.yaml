@@ -1,1 +1,92 @@
 databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: robin
+      changes:
+
+        - createTable:
+            tableName: USERS
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: email_address
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+        - createTable:
+            tableName: LINKS
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: href
+                  type: VARCHAR(2048)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+
+        - createTable:
+            tableName: USER_TAGS
+            columns:
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_tags_user
+                    references: USERS(id)
+
+        - createIndex:
+            indexName: idx_user_tags_user
+            tableName: USER_TAGS
+            columns:
+              - column:
+                  name: user
+
+        - createTable:
+            tableName: USER_SAVES
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: link
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_saves_link
+                    references: LINKS(id)
+              - column:
+                  name: user
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_saves_user
+                    references: USERS(id)

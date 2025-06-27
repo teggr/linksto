@@ -1,4 +1,4 @@
-package page.linksto.app.tags;
+package page.linksto.app.users.tags;
 
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.data.repository.ListPagingAndSortingRepository;
