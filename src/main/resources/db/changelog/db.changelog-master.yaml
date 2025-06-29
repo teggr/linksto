@@ -46,10 +46,16 @@ databaseChangeLog:
             tableName: USER_TAGS
             columns:
               - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
                   name: name
                   type: VARCHAR(255)
                   constraints:
-                    primaryKey: true
                     nullable: false
               - column:
                   name: user
@@ -90,3 +96,11 @@ databaseChangeLog:
                     nullable: false
                     foreignKeyName: fk_user_saves_user
                     references: USERS(id)
+              - column:
+                  name: tags
+                  type: VARCHAR(255) ARRAY
+                  constraints:
+                    nullable: false
+              - column:
+                  name: notes
+                  type: TEXT

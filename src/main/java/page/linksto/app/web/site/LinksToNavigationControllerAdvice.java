@@ -18,7 +18,7 @@ public class LinksToNavigationControllerAdvice {
     String homeUrl = fromMethodCall(on(HomeController.class).getHome(null, null)).build().toUriString();
     model.addAttribute("homeUrl", homeUrl);
 
-    String saveUrl = fromMethodCall(on(SaveController.class).startSave(null, null)).build().toUriString();
+    String saveUrl = fromMethodCall(on(SaveController.class).startSave(null,null, null)).build().toUriString();
     model.addAttribute("saveUrl", saveUrl);
 
     String logoutUrl = "/logout";

@@ -1,4 +1,11 @@
 package page.linksto.app.web.save;
 
-public record SaveForm(String url) {
+import java.util.List;
+
+public record SaveForm(
+  String url,
+  String tagText,
+  List<String> tags,
+  String notes
+) {
 }

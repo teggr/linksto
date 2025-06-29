@@ -23,7 +23,7 @@ public class Saves {
   private final UserRepository userRepository;
 
   @Transactional
-  public Save save(String href, String title, List<String> tagNames, String emailAddress) {
+  public Save save(String href, List<String> tags, String notes, String emailAddress) {
 
     User user = userRepository.findByEmailAddress(emailAddress);
     AggregateReference<User, Long> userRef = AggregateReference.to(user.id());
@@ -31,24 +31,25 @@ public class Saves {
     // does the link exist, check the link service
     // if yes, use the reference, otherwise create the link
     Link link = linkRepository.findByHref(href)
-      .orElseGet(() -> linkRepository.save(new Link(null, href, title)));
+      .orElseGet(() -> linkRepository.save(new Link(null, href, "")));
     AggregateReference<Link, Long> linkRef = AggregateReference.to(link.id());
 
     // do we already have his saved? if so, we can ignore creating a new one
     // if not saved, then we can create a new save
     Save save = saveRepository.findByLinkAndUser(link.id(), user.id())
-      .orElseGet(() -> saveRepository.save(new Save(null, linkRef, userRef)));
+      .orElseGet(() -> saveRepository.save(new Save(null, linkRef, userRef, tags, notes)));
 
     // store a copy of the tags in the tags repository - no duplicates
-    if (tagNames != null && !tagNames.isEmpty()) {
-      tagNames.forEach(tagName -> {
-        tagRepository.findById(tagName.toLowerCase())
-          .orElseGet(() -> tagRepository.save(new Tag(tagName, userRef)));
+    if (tags != null && !tags.isEmpty()) {
+      tags.forEach(tagName -> {
+        tagRepository.findByName(tagName.toLowerCase())
+          .orElseGet(() -> tagRepository.save(new Tag(null, tagName, userRef)));
       });
     }
 
     // return the save
     return saveRepository.save(save);
+
   }
 
 }
