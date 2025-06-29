@@ -5,6 +5,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+
 @Component
 @RequiredArgsConstructor
 public class UserRegistrationHandler {
@@ -17,7 +19,7 @@ public class UserRegistrationHandler {
     String username = ((org.springframework.security.core.userdetails.User) success.getAuthentication().getPrincipal()).getUsername();
 
     if (!userRepository.existsByEmailAddress(username)) {
-      userRepository.save(new User(null, username));
+      userRepository.save(new User(null, username, Instant.now()));
     }
 
   }

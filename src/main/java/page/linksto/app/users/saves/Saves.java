@@ -11,6 +11,7 @@ import page.linksto.app.users.UserRepository;
 import page.linksto.app.users.tags.Tag;
 import page.linksto.app.users.tags.TagRepository;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -31,13 +32,13 @@ public class Saves {
     // does the link exist, check the link service
     // if yes, use the reference, otherwise create the link
     Link link = linkRepository.findByHref(href)
-      .orElseGet(() -> linkRepository.save(new Link(null, href, "")));
+      .orElseGet(() -> linkRepository.save(new Link(null, href, "", Instant.now())));
     AggregateReference<Link, Long> linkRef = AggregateReference.to(link.id());
 
     // do we already have his saved? if so, we can ignore creating a new one
     // if not saved, then we can create a new save
     Save save = saveRepository.findByLinkAndUser(link.id(), user.id())
-      .orElseGet(() -> saveRepository.save(new Save(null, linkRef, userRef, tags, notes)));
+      .orElseGet(() -> saveRepository.save(new Save(null, linkRef, userRef, tags, notes, Instant.now())));
 
     // store a copy of the tags in the tags repository - no duplicates
     if (tags != null && !tags.isEmpty()) {

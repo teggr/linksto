@@ -20,6 +20,9 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     unique: true
+              - column:
+                  name: CREATED_DATE
+                  type: TIMESTAMP WITH TIME ZONE
 
         - createTable:
             tableName: LINKS
@@ -41,6 +44,9 @@ databaseChangeLog:
                   type: VARCHAR(255)
                   constraints:
                     nullable: true
+              - column:
+                  name: CREATED_DATE
+                  type: TIMESTAMP WITH TIME ZONE
 
         - createTable:
             tableName: USER_TAGS
@@ -104,3 +110,6 @@ databaseChangeLog:
               - column:
                   name: notes
                   type: TEXT
+              - column:
+                  name: CREATED_DATE
+                  type: TIMESTAMP WITH TIME ZONE
