@@ -15,7 +15,7 @@ public class LinksToNavigationControllerAdvice {
   @ModelAttribute
   public void populateModel(Model model) {
 
-    String homeUrl = fromMethodCall(on(HomeController.class).getHome(null, null)).build().toUriString();
+    String homeUrl = fromMethodCall(on(HomeController.class).getHome(null, null, null)).build().toUriString();
     model.addAttribute("homeUrl", homeUrl);
 
     String saveUrl = fromMethodCall(on(SaveController.class).startSave(null,null, null)).build().toUriString();

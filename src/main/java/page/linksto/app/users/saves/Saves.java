@@ -1,6 +1,8 @@
 package page.linksto.app.users.saves;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +53,10 @@ public class Saves {
     // return the save
     return saveRepository.save(save);
 
+  }
+
+  public Page<Save> get(Pageable pageable) {
+    return saveRepository.findAll(pageable);
   }
 
 }
